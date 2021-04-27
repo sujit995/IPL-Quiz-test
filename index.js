@@ -1,9 +1,20 @@
 const readlineSync = require("readline-sync");
 const chalk = require('chalk');
 
-const myName = readlineSync.question("Enter Your Name");
+const myName = readlineSync.question("Enter Your Name ");
 
 let score = 0;
+
+var highScores = [
+  {
+    name:"Sujit",
+    score:5
+  },
+  {
+    name: "Anup",
+    score: 4
+  }
+]
 
 console.log("Welcome " + myName)
 
@@ -13,13 +24,15 @@ console.log("(ONLY ENTER THE OPTION NUMBER)")
 function play(question, answer) {
   const userAnswer = readlineSync.question(question)
 
-  if (userAnswer === answer) {
+  if (userAnswer.toUpperCase() === answer.toUpperCase()) {
     console.log("right")
     score = score + 1;
+    console.log("Current Score : " + score)
   }
   else {
     console.log("wrong")
     score = score - 1;
+    console.log("Current Score : " + score)
   }
   console.log("---------------")
 }
@@ -76,11 +89,16 @@ for (let i = 0; i < questions.length; i++) {
   play(currentQuestion.question, currentQuestion.answer);
 }
 
-console.log("Your score " + score);
 
+function showScores() {
+	console.log('Awesome! You Scored: ', score);
+	highScores.map(score => console.log(score.name, ' : ', score.score));
+}
+
+showScores();
 
 if(score > 2){
   console.log("You pass the quiz test")
 } else {
-  console.log("Take a quiz test again!!")
+  console.log("Re-take a quiz")
 }
